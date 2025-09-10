@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fixmyPhone - Mobile Repair in Mysore | Screen, Battery, Water Damage</title>
+    <meta name="description" content="fixmyPhone provides fast and reliable mobile repair services in Mysore. We specialize in screen replacement, battery replacement, water damage repair, and more. Get a quote today!">
+    <meta name="keywords" content="mobile repair Mysore, phone repair Mysore, screen replacement, battery replacement, fixmyPhone Mysore, charging port repair, water damage repair, smartphone service Mysore">
+
+    <!-- SEO Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "fixmyPhone",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Mysore",
+        "addressRegion": "Karnataka",
+        "postalCode": "570001",
+        "streetAddress": "123 Main Street"
+      },
+      "telephone": "+919876543210",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "09:00",
+          "closes": "19:00"
+        }
+      ],
+      "url": "http://www.fixmyphone.com",
+      "image": "https://placehold.co/1200x630/E0E7FF/1E40AF?text=fixmyPhone",
+      "priceRange": "$$",
+      "service": {
+        "@type": "Service",
+        "name": "Mobile Phone Repair",
+        "description": "Comprehensive repair services for smartphones, including screen, battery, and water damage."
+      }
+    }
+    </script>
+
+    <!-- Tailwind CSS and Font Awesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .sticky-header {
+            transition: all 0.3s ease-in-out;
+        }
+        .icon-service {
+            transition: transform 0.3s ease-in-out;
+        }
+        .icon-service:hover {
+            transform: translateY(-8px) scale(1.05);
+        }
+        .quote-modal {
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .scroll-to-top {
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        /* New CSS for mobile menu animation */
+        .mobile-menu-animation {
+            transition: max-height 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .mobile-menu-animation.active {
+            max-height: 500px; /* A large value to ensure the menu fully expands */
+        }
+        
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Dismissible Discount Banner -->
+    <div id="discount-banner" class="bg-yellow-400 text-center text-sm font-semibold py-2 px-6 flex justify-center items-center relative">
+        <p>🎉 Get 10% off your first repair! Use code: FIX10</p>
+        <button id="dismiss-banner" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-800 hover:text-gray-600">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Sticky Header -->
+    <header id="header" class="sticky-header fixed top-0 left-0 w-full z-40 bg-white shadow-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <span class="text-2xl font-bold text-blue-600">fixmyPhone</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#services" class="text-gray-600 hover:text-blue-600 transition-colors duration-200">Services</a>
+                <a href="#about" class="text-gray-600 hover:text-blue-600 transition-colors duration-200">About Us</a>
+                <a href="#testimonials" class="text-gray-600 hover:text-blue-600 transition-colors duration-200">Reviews</a>
+                <a href="#blog" class="text-gray-600 hover:text-blue-600 transition-colors duration-200">Blog</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors duration-200">Contact</a>
+                <!-- Language Toggle moved into the navigation flow for desktop -->
+                <button id="lang-toggle" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-200">
+                    Switch to Kannada
+                </button>
+                <!-- "Get a Quote" button added back for quick access -->
+                <button id="quote-button" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-full shadow-md hover:bg-blue-700 transition-colors duration-200">Get a Quote</button>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-600 hover:text-blue-600">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden bg-white shadow-lg py-4 mobile-menu-animation">
+            <a href="#services" class="block px-6 py-2 text-gray-600 hover:bg-gray-100">Services</a>
+            <a href="#about" class="block px-6 py-2 text-gray-600 hover:bg-gray-100">About Us</a>
+            <a href="#testimonials" class="block px-6 py-2 text-gray-600 hover:bg-gray-100">Reviews</a>
+            <a href="#blog" class="block px-6 py-2 text-gray-600 hover:bg-gray-100">Blog</a>
+            <a href="#contact" class="block px-6 py-2 text-gray-600 hover:bg-gray-100">Contact</a>
+            <!-- Language Toggle moved into the mobile menu -->
+            <button id="lang-toggle-mobile" class="w-full text-left px-6 py-2 text-blue-600 hover:bg-gray-100">Switch to Kannada</button>
+            <!-- "Get a Quote" button added back to mobile menu -->
+            <button id="quote-button-mobile" class="w-full text-left px-6 py-2 text-blue-600 hover:bg-gray-100">Get a Quote</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20 lg:py-40 flex items-center justify-center min-h-screen">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl lg:text-6xl font-extrabold mb-4 leading-tight">
+                    <span id="hero-title-1">Repair, Renew,</span> <span id="hero-title-2">Revive</span>
+                </h1>
+                <p id="hero-subtitle" class="text-lg lg:text-2xl font-light mb-8 max-w-2xl mx-auto">
+                    Your trusted partner for all mobile device repairs in Mysore and beyond.
+                </p>
+                <button id="hero-quote-btn" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                    Get a Quote
+                </button>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 id="services-title" class="text-3xl font-bold text-center mb-4">Our Services</h2>
+                <p id="services-subtitle" class="text-center text-gray-600 mb-12">
+                    We offer a wide range of repair services for all major phone brands.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Service Card 1: Screen Replacement -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 text-center icon-service">
+                        <div class="text-5xl text-blue-500 mb-4">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 id="service-1-title" class="text-xl font-semibold mb-2">Screen Replacement</h3>
+                        <p id="service-1-desc" class="text-gray-600">
+                            Cracked screen? We offer fast and affordable screen replacement with high-quality parts.
+                        </p>
+                    </div>
+                    <!-- Service Card 2: Battery Replacement -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 text-center icon-service">
+                        <div class="text-5xl text-blue-500 mb-4">
+                            <i class="fas fa-battery-half"></i>
+                        </div>
+                        <h3 id="service-2-title" class="text-xl font-semibold mb-2">Battery Replacement</h3>
+                        <p id="service-2-desc" class="text-gray-600">
+                            Is your phone's battery draining too fast? Get a new one installed in minutes.
+                        </p>
+                    </div>
+                    <!-- Service Card 3: Charging Port Repair -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 text-center icon-service">
+                        <div class="text-5xl text-blue-500 mb-4">
+                            <i class="fas fa-charging-station"></i>
+                        </div>
+                        <h3 id="service-3-title" class="text-xl font-semibold mb-2">Charging Port Repair</h3>
+                        <p id="service-3-desc" class="text-gray-600">
+                            Trouble charging your device? We'll fix or replace your charging port quickly.
+                        </p>
+                    </div>
+                    <!-- Service Card 4: Water Damage Repair -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 text-center icon-service">
+                        <div class="text-5xl text-blue-500 mb-4">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <h3 id="service-4-title" class="text-xl font-semibold mb-2">Water Damage Repair</h3>
+                        <p id="service-4-desc" class="text-gray-600">
+                            Accidentally dropped your phone in water? Bring it to us immediately for a full diagnosis.
+                        </p>
+                    </div>
+                    <!-- Other services... -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 text-center icon-service">
+                        <div class="text-5xl text-blue-500 mb-4">
+                            <i class="fas fa-volume-up"></i>
+                        </div>
+                        <h3 id="service-5-title" class="text-xl font-semibold mb-2">Speaker & Mic Issues</h3>
+                        <p id="service-5-desc" class="text-gray-600">
+                            Can't hear or be heard? We'll get your audio components working perfectly.
+                        </p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 text-center icon-service">
+                        <div class="text-5xl text-blue-500 mb-4">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3 id="service-6-title" class="text-xl font-semibold mb-2">Camera Repair</h3>
+                        <p id="service-6-desc" class="text-gray-600">
+                            Fuzzy photos or a broken camera lens? We'll replace it and get you back to snapping.
+                        </p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 text-center icon-service">
+                        <div class="text-5xl text-blue-500 mb-4">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3 id="service-7-title" class="text-xl font-semibold mb-2">Software Updates</h3>
+                        <p id="service-7-desc" class="text-gray-600">
+                            Stuck on an old version or having software issues? We can help with updates and troubleshooting.
+                        </p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 text-center icon-service">
+                        <div class="text-5xl text-blue-500 mb-4">
+                            <i class="fas fa-mobile-alt transform rotate-90"></i>
+                        </div>
+                        <h3 id="service-8-title" class="text-xl font-semibold mb-2">Back Glass Repair</h3>
+                        <p id="service-8-desc" class="text-gray-600">
+                            Broken back glass? We offer professional replacement to restore your phone's look.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <h2 id="about-title" class="text-3xl font-bold text-center mb-4">Our Story</h2>
+                <p id="about-text" class="text-center text-gray-600 mb-12 leading-relaxed">
+                    Founded in the heart of Mysore, fixmyPhone was born from a simple idea: provide honest, high-quality, and reliable phone repair services. We believe in transparency and empowering our customers with the knowledge to care for their devices. Our mission is to be the go-to destination for mobile solutions, bringing your favorite devices back to life with a touch of care and expertise.
+                </p>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="bg-gray-200 py-20">
+            <div class="container mx-auto px-6">
+                <h2 id="testimonials-title" class="text-3xl font-bold text-center mb-4">What Our Customers Say</h2>
+                <p id="testimonials-subtitle" class="text-center text-gray-600 mb-12">
+                    Don't just take our word for it—read what people in Mysore have to say.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="ml-2 text-sm text-gray-500">5.0</span>
+                        </div>
+                        <p id="testimonial-1-text" class="text-gray-700 mb-4 italic">
+                            "My phone screen was shattered. fixmyPhone fixed it in under an hour and it looks brand new. Amazing service!"
+                        </p>
+                        <p id="testimonial-1-author" class="font-semibold">- Anjali R.</p>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="ml-2 text-sm text-gray-500">5.0</span>
+                        </div>
+                        <p id="testimonial-2-text" class="text-gray-700 mb-4 italic">
+                            "I had a charging issue that no one else could solve. The team at fixmyPhone diagnosed and fixed it perfectly. Highly recommended."
+                        </p>
+                        <p id="testimonial-2-author" class="font-semibold">- Rahul K.</p>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="ml-2 text-sm text-gray-500">5.0</span>
+                        </div>
+                        <p id="testimonial-3-text" class="text-gray-700 mb-4 italic">
+                            "Fast service and very professional. They even gave me tips on how to prevent future damage. Great experience."
+                        </p>
+                        <p id="testimonial-3-author" class="font-semibold">- Priya S.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 id="blog-title" class="text-3xl font-bold text-center mb-4">Phone Care & Repair Tips</h2>
+                <p id="blog-subtitle" class="text-center text-gray-600 mb-12">
+                    Learn how to keep your device in top condition with our expert advice.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Blog Post 1 -->
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        <img src="https://placehold.co/600x400/1E40AF/fff?text=Blog+Post+1" alt="How to Extend Your Phone's Battery Life" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 id="blog-1-title" class="text-xl font-semibold mb-2">10 Tips to Extend Your Phone's Battery Life</h3>
+                            <p id="blog-1-excerpt" class="text-gray-600 text-sm">
+                                A guide on how to make your battery last longer with simple habit changes and settings adjustments...
+                            </p>
+                            <a href="#" class="mt-4 inline-block text-blue-600 font-semibold hover:underline">Read More &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Blog Post 2 -->
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        <img src="https://placehold.co/600x400/1E40AF/fff?text=Blog+Post+2" alt="What to Do After Water Damage" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 id="blog-2-title" class="text-xl font-semibold mb-2">What to Do After Your Phone Gets Wet</h3>
+                            <p id="blog-2-excerpt" class="text-gray-600 text-sm">
+                                An essential guide on the do's and don'ts when your smartphone takes a dive...
+                            </p>
+                            <a href="#" class="mt-4 inline-block text-blue-600 font-semibold hover:underline">Read More &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Blog Post 3 -->
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        <img src="https://placehold.co/600x400/1E40AF/fff?text=Blog+Post+3" alt="Screen Protectors: Are They Worth It?" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 id="blog-3-title" class="text-xl font-semibold mb-2">Are Screen Protectors Really Necessary?</h3>
+                            <p id="blog-3-excerpt" class="text-gray-600 text-sm">
+                                We break down the pros and cons of using a screen protector and which ones are best...
+                            </p>
+                            <a href="#" class="mt-4 inline-block text-blue-600 font-semibold hover:underline">Read More &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="bg-gray-100 py-20">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <h2 id="contact-title" class="text-3xl font-bold text-center mb-4">Contact Us</h2>
+                <p id="contact-subtitle" class="text-center text-gray-600 mb-12">
+                    Visit our store in Mysore or get in touch with us directly.
+                </p>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-map-marker-alt text-2xl text-blue-600 mr-4"></i>
+                                <div>
+                                    <h3 id="address-title" class="font-semibold text-lg">Address</h3>
+                                    <p id="address-text" class="text-gray-600">
+                                        123 Main Street, <br>
+                                        Mysore, Karnataka 570001
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-phone-alt text-2xl text-blue-600 mr-4"></i>
+                                <div>
+                                    <h3 id="phone-title" class="font-semibold text-lg">Phone</h3>
+                                    <p id="phone-text" class="text-gray-600">+91 98765 43210</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-envelope text-2xl text-blue-600 mr-4"></i>
+                                <div>
+                                    <h3 id="email-title" class="font-semibold text-lg">Email</h3>
+                                    <p id="email-text" class="text-gray-600">info@fixmyphone.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="h-64 rounded-xl overflow-hidden shadow-lg">
+                                <!-- Google Maps Embed -->
+                                <!-- Replace the src with your actual Google Maps embed code -->
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15570.627791834164!2d76.6401666!3d12.2958448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b07cf0e2d19d655%3A0xc3b8a1c8b35c05b1!2sMysuru%2C%20Karnataka%2C%20India!5e0!3m2!1sen!2sse!4v1694356411559!5m2!1sen!2sse" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 id="faq-title" class="text-3xl font-bold text-center mb-4">Frequently Asked Questions</h2>
+                <p id="faq-subtitle" class="text-center text-gray-600 mb-12">
+                    Find quick answers to common questions about our services.
+                </p>
+                <div class="max-w-3xl mx-auto">
+                    <!-- FAQ Item 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md mb-4">
+                        <h3 id="faq-1-q" class="font-semibold text-lg mb-2">How long does a screen replacement take?</h3>
+                        <p id="faq-1-a" class="text-gray-700">
+                            Most screen replacements are completed within 60-90 minutes, depending on the device model and current workload.
+                        </p>
+                    </div>
+                    <!-- FAQ Item 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md mb-4">
+                        <h3 id="faq-2-q" class="font-semibold text-lg mb-2">Do you use original parts?</h3>
+                        <p id="faq-2-a" class="text-gray-700">
+                            We use high-quality, OEM-grade parts that are tested for performance and durability. We stand by the quality of our repairs.
+                        </p>
+                    </div>
+                    <!-- FAQ Item 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md mb-4">
+                        <h3 id="faq-3-q" class="font-semibold text-lg mb-2">Is there a warranty on your repairs?</h3>
+                        <p id="faq-3-a" class="text-gray-700">
+                            Yes, all our repairs come with a standard warranty covering the parts and labor. Please ask our staff for details.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Action Buttons -->
+    <div class="fixed bottom-6 right-6 flex flex-col space-y-3 z-50">
+        <!-- WhatsApp Button -->
+        <a href="https://wa.me/919876543210" target="_blank" class="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-200">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </a>
+        <!-- Call Now Button -->
+        <a href="tel:+919876543210" class="bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-200">
+            <i class="fas fa-phone-alt text-2xl"></i>
+        </a>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 left-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-200 opacity-0 invisible scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Get a Quote Modal -->
+    <div id="quote-modal" class="quote-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 invisible">
+        <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md mx-4 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-2xl font-bold text-gray-800">Get a Quote</h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-800 text-2xl">
+                    &times;
+                </button>
+            </div>
+            <p id="modal-subtitle" class="text-gray-600 mb-6">
+                Fill out the form below and we'll get back to you with a quote.
+            </p>
+            <form id="quote-form">
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700 font-semibold mb-2">Name</label>
+                    <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="phone" class="block text-gray-700 font-semibold mb-2">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="device" class="block text-gray-700 font-semibold mb-2">Device Type</label>
+                    <input type="text" id="device" name="device" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div class="mb-6">
+                    <label for="issue" class="block text-gray-700 font-semibold mb-2">Issue Description</label>
+                    <textarea id="issue" name="issue" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                </div>
+                <button type="submit" id="submit-quote" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    Submit Request
+                </button>
+            </form>
+            <div id="diagnosis-result" class="mt-6 p-4 bg-gray-100 rounded-lg hidden">
+                <h4 class="font-bold text-blue-600 mb-2">✨ AI Diagnosis</h4>
+                <div id="diagnosis-text" class="text-gray-700"></div>
+                <div id="diagnosis-loading" class="text-center text-gray-500 mt-2 hidden">
+                    <i class="fas fa-spinner fa-spin mr-2"></i> Thinking...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const quoteModal = document.getElementById('quote-modal');
+            const quoteButtons = document.querySelectorAll('#quote-button, #hero-quote-btn, #quote-button-mobile');
+            const closeModalButton = document.getElementById('close-modal');
+            const header = document.getElementById('header');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const langToggleDesktop = document.getElementById('lang-toggle');
+            const langToggleMobile = document.getElementById('lang-toggle-mobile');
+            const dismissBannerBtn = document.getElementById('dismiss-banner');
+            const discountBanner = document.getElementById('discount-banner');
+            const backToTopBtn = document.getElementById('back-to-top');
+
+            // New elements for AI features
+            const quoteForm = document.getElementById('quote-form');
+            const diagnosisResult = document.getElementById('diagnosis-result');
+            const diagnosisText = document.getElementById('diagnosis-text');
+            const diagnosisLoading = document.getElementById('diagnosis-loading');
+            const submitQuoteBtn = document.getElementById('submit-quote');
+
+            // Language content
+            const translations = {
+                'en': {
+                    heroTitle1: 'Repair, Renew,',
+                    heroTitle2: 'Revive',
+                    heroSubtitle: 'Your trusted partner for all mobile device repairs in Mysore and beyond.',
+                    servicesTitle: 'Our Services',
+                    servicesSubtitle: 'We offer a wide range of repair services for all major phone brands.',
+                    service1Title: 'Screen Replacement',
+                    service1Desc: 'Cracked screen? We offer fast and affordable screen replacement with high-quality parts.',
+                    service2Title: 'Battery Replacement',
+                    service2Desc: 'Is your phone\'s battery draining too fast? Get a new one installed in minutes.',
+                    service3Title: 'Charging Port Repair',
+                    service3Desc: 'Trouble charging your device? We\'ll fix or replace your charging port quickly.',
+                    service4Title: 'Water Damage Repair',
+                    service4Desc: 'Accidentally dropped your phone in water? Bring it to us immediately for a full diagnosis.',
+                    service5Title: 'Speaker & Mic Issues',
+                    service5Desc: 'Can\'t hear or be heard? We\'ll get your audio components working perfectly.',
+                    service6Title: 'Camera Repair',
+                    service6Desc: 'Fuzzy photos or a broken camera lens? We\'ll replace it and get you back to snapping.',
+                    service7Title: 'Software Updates',
+                    service7Desc: 'Stuck on an old version or having software issues? We can help with updates and troubleshooting.',
+                    service8Title: 'Back Glass Repair',
+                    service8Desc: 'Broken back glass? We offer professional replacement to restore your phone\'s look.',
+                    aboutTitle: 'Our Story',
+                    aboutText: 'Founded in the heart of Mysore, fixmyPhone was born from a simple idea: provide honest, high-quality, and reliable phone repair services. We believe in transparency and empowering our customers with the knowledge to care for their devices. Our mission is to be the go-to destination for mobile solutions, bringing your favorite devices back to life with a touch of care and expertise.',
+                    testimonialsTitle: 'What Our Customers Say',
+                    testimonialsSubtitle: 'Don\'t just take our word for it—read what people in Mysore have to say.',
+                    testimonial1Text: '"My phone screen was shattered. fixmyPhone fixed it in under an hour and it looks brand new. Amazing service!"',
+                    testimonial1Author: '- Anjali R.',
+                    testimonial2Text: '"I had a charging issue that no one else could solve. The team at fixmyPhone diagnosed and fixed it perfectly. Highly recommended."',
+                    testimonial2Author: '- Rahul K.',
+                    testimonial3Text: '"Fast service and very professional. They even gave me tips on how to prevent future damage. Great experience."',
+                    testimonial3Author: '- Priya S.',
+                    contactTitle: 'Contact Us',
+                    contactSubtitle: 'Visit our store in Mysore or get in touch with us directly.',
+                    addressTitle: 'Address',
+                    addressText: '123 Main Street, <br>Mysore, Karnataka 570001',
+                    phoneTitle: 'Phone',
+                    phoneText: '+91 98765 43210',
+                    emailTitle: 'Email',
+                    emailText: 'info@fixmyphone.com',
+                    faqTitle: 'Frequently Asked Questions',
+                    faqSubtitle: 'Find quick answers to common questions about our services.',
+                    faq1Q: 'How long does a screen replacement take?',
+                    faq1A: 'Most screen replacements are completed within 60-90 minutes, depending on the device model and current workload.',
+                    faq2Q: 'Do you use original parts?',
+                    faq2A: 'We use high-quality, OEM-grade parts that are tested for performance and durability. We stand by the quality of our repairs.',
+                    faq3Q: 'Is there a warranty on your repairs?',
+                    faq3A: 'Yes, all our repairs come with a standard warranty covering the parts and labor. Please ask our staff for details.',
+                    modalTitle: 'Get a Quote',
+                    modalSubtitle: 'Fill out the form below and we\'ll get back to you with a quote.',
+                    langButtonText: 'Switch to Kannada'
+                },
+                'kn': {
+                    heroTitle1: 'ದುರಸ್ತಿ ಮಾಡಿ, ನವೀಕರಿಸಿ,',
+                    heroTitle2: 'ಪುನರುಜ್ಜೀವನಗೊಳಿಸಿ',
+                    heroSubtitle: 'ಮೈಸೂರು ಮತ್ತು ಸುತ್ತಮುತ್ತಲಿನ ಪ್ರದೇಶಗಳಲ್ಲಿ ನಿಮ್ಮ ಮೊಬೈಲ್ ಸಾಧನಗಳ ದುರಸ್ತಿಗಾಗಿ ನಿಮ್ಮ ವಿಶ್ವಾಸಾರ್ಹ ಪಾಲುದಾರ.',
+                    servicesTitle: 'ನಮ್ಮ ಸೇವೆಗಳು',
+                    servicesSubtitle: 'ನಾವು ಎಲ್ಲಾ ಪ್ರಮುಖ ಫೋನ್ ಬ್ರ್ಯಾಂಡ್‌ಗಳಿಗೆ ವ್ಯಾಪಕ ಶ್ರೇಣಿಯ ದುರಸ್ತಿ ಸೇವೆಗಳನ್ನು ನೀಡುತ್ತೇವೆ.',
+                    service1Title: 'ಪರದೆ ಬದಲಾವಣೆ',
+                    service1Desc: 'ಪರದೆ ಒಡೆದಿದೆಯೇ? ನಾವು ಉತ್ತಮ ಗುಣಮಟ್ಟದ ಭಾಗಗಳೊಂದಿಗೆ ವೇಗವಾಗಿ ಮತ್ತು ಕೈಗೆಟುಕುವ ಪರದೆ ಬದಲಾವಣೆ ಸೇವೆ ನೀಡುತ್ತೇವೆ.',
+                    service2Title: 'ಬ್ಯಾಟರಿ ಬದಲಾವಣೆ',
+                    service2Desc: 'ನಿಮ್ಮ ಫೋನ್‌ನ ಬ್ಯಾಟರಿ ಬೇಗ ಖಾಲಿಯಾಗುತ್ತಿದೆಯೇ? ಕೆಲವು ನಿಮಿಷಗಳಲ್ಲಿ ಹೊಸದನ್ನು ಅಳವಡಿಸಿ.',
+                    service3Title: 'ಚಾರ್ಜಿಂಗ್ ಪೋರ್ಟ್ ರಿಪೇರಿ',
+                    service3Desc: 'ನಿಮ್ಮ ಸಾಧನ ಚಾರ್ಜ್ ಆಗುತ್ತಿಲ್ಲವೇ? ನಾವು ನಿಮ್ಮ ಚಾರ್ಜಿಂಗ್ ಪೋರ್ಟ್‌ ಅನ್ನು ತ್ವರಿತವಾಗಿ ಸರಿಪಡಿಸುತ್ತೇವೆ ಅಥವಾ ಬದಲಾಯಿಸುತ್ತೇವೆ.',
+                    service4Title: 'ನೀರಿನ ಹಾನಿ ರಿಪೇರಿ',
+                    service4Desc: 'ತಪ್ಪಾಗಿ ನಿಮ್ಮ ಫೋನ್‌ ಅನ್ನು ನೀರಿನಲ್ಲಿ ಬಿಟ್ಟಿದ್ದೀರಾ? ತಕ್ಷಣವೇ ಅದನ್ನು ಸಂಪೂರ್ಣ ಪರೀಕ್ಷೆಗಾಗಿ ನಮಗೆ ತನ್ನಿ.',
+                    service5Title: 'ಸ್ಪೀಕರ್ ಮತ್ತು ಮೈಕ್ ಸಮಸ್ಯೆಗಳು',
+                    service5Desc: 'ಕೇಳಲು ಅಥವಾ ಮಾತನಾಡಲು ಸಾಧ್ಯವಿಲ್ಲವೇ? ನಾವು ನಿಮ್ಮ ಆಡಿಯೊ ಘಟಕಗಳನ್ನು ಪರಿಪೂರ್ಣವಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸುವಂತೆ ಮಾಡುತ್ತೇವೆ.',
+                    service6Title: 'ಕ್ಯಾಮೆರಾ ರಿಪೇರಿ',
+                    service6Desc: 'ಫೋಟೋಗಳು ಮಸುಕಾಗಿದೆಯೇ ಅಥವಾ ಕ್ಯಾಮೆರಾ ಲೆನ್ಸ್ ಒಡೆದಿದೆಯೇ? ನಾವು ಅದನ್ನು ಬದಲಾಯಿಸುತ್ತೇವೆ ಮತ್ತು ನಿಮ್ಮ ಫೋನ್‌ ಅನ್ನು ಫೋಟೋ ತೆಗೆಯಲು ಸಿದ್ಧಗೊಳಿಸುತ್ತೇವೆ.',
+                    service7Title: 'ಸಾಫ್ಟ್‌ವೇರ್ ಅಪ್‌ಡೇಟ್‌ಗಳು',
+                    service7Desc: 'ಹಳೆಯ ಆವೃತ್ತಿಯಲ್ಲಿದ್ದೀರಾ ಅಥವಾ ಸಾಫ್ಟ್‌ವೇರ್ ಸಮಸ್ಯೆಗಳನ್ನು ಹೊಂದಿದ್ದೀರಾ? ಅಪ್‌ಡೇಟ್‌ಗಳು ಮತ್ತು ಸಮಸ್ಯೆಗಳನ್ನು ಪರಿಹರಿಸಲು ನಾವು ಸಹಾಯ ಮಾಡುತ್ತೇವೆ.',
+                    service8Title: 'ಬ್ಯಾಕ್ ಗ್ಲಾಸ್ ರಿಪೇರಿ',
+                    service8Desc: 'ಬ್ಯಾಕ್ ಗ್ಲಾಸ್ ಒಡೆದಿದೆಯೇ? ನಿಮ್ಮ ಫೋನ್‌ಗೆ ಹೊಸ ನೋಟ ನೀಡಲು ನಾವು ವೃತ್ತಿಪರ ಬದಲಾವಣೆ ಸೇವೆ ನೀಡುತ್ತೇವೆ.',
+                    aboutTitle: 'ನಮ್ಮ ಕಥೆ',
+                    aboutText: 'ಮೈಸೂರಿನ ಹೃದಯಭಾಗದಲ್ಲಿ ಸ್ಥಾಪಿತವಾದ fixmyPhone, ಒಂದು ಸರಳ ಕಲ್ಪನೆಯಿಂದ ಹುಟ್ಟಿಕೊಂಡಿದೆ: ಪ್ರಾಮಾಣಿಕ, ಉತ್ತಮ ಗುಣಮಟ್ಟದ ಮತ್ತು ವಿಶ್ವಾಸಾರ್ಹ ಫೋನ್ ರಿಪೇರಿ ಸೇವೆಗಳನ್ನು ಒದಗಿಸುವುದು. ನಾವು ಪಾರದರ್ಶಕತೆ ಮತ್ತು ನಮ್ಮ ಗ್ರಾಹಕರನ್ನು ತಮ್ಮ ಸಾಧನಗಳನ್ನು ನೋಡಿಕೊಳ್ಳುವ ಜ್ಞಾನದಿಂದ ಸಶಕ್ತಗೊಳಿಸುವುದರಲ್ಲಿ ನಂಬಿಕೆ ಇಟ್ಟಿದ್ದೇವೆ. ನಮ್ಮ ಉದ್ದೇಶವು ಮೊಬೈಲ್ ಪರಿಹಾರಗಳಿಗಾಗಿ ಪ್ರಮುಖ ಸ್ಥಳವಾಗುವುದು, ನಿಮ್ಮ ನೆಚ್ಚಿನ ಸಾಧನಗಳನ್ನು ಕಾಳಜಿ ಮತ್ತು ಪರಿಣತಿಯ ಸ್ಪರ್ಶದಿಂದ ಮತ್ತೆ ಜೀವಂತಗೊಳಿಸುವುದು.',
+                    testimonialsTitle: 'ನಮ್ಮ ಗ್ರಾಹಕರು ಏನು ಹೇಳುತ್ತಾರೆ',
+                    testimonialsSubtitle: 'ನಮ್ಮ ಮಾತನ್ನು ಮಾತ್ರ ನಂಬಬೇಡಿ—ಮೈಸೂರಿನ ಜನರು ಏನು ಹೇಳುತ್ತಾರೆ ಎಂಬುದನ್ನು ಓದಿ.',
+                    testimonial1Text: '"ನನ್ನ ಫೋನ್ ಪರದೆ ಒಡೆದಿತ್ತು. fixmyPhone ಒಂದು ಗಂಟೆಯೊಳಗೆ ಅದನ್ನು ಸರಿಪಡಿಸಿತು ಮತ್ತು ಅದು ಹೊಸದರಂತೆ ಕಾಣುತ್ತಿದೆ. ಅದ್ಭುತ ಸೇವೆ!"',
+                    testimonial1Author: '- ಅಂಜಲಿ ಆರ್.',
+                    testimonial2Text: '"ಬೇರೆ ಯಾರೂ ಪರಿಹರಿಸಲಾಗದ ಚಾರ್ಜಿಂಗ್ ಸಮಸ್ಯೆಯನ್ನು ನಾನು ಹೊಂದಿದ್ದೆ. fixmyPhone ತಂಡವು ಅದನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ಪತ್ತೆಹಚ್ಚಿ ಸರಿಪಡಿಸಿತು. ತುಂಬಾ ಶಿಫಾರಸು ಮಾಡುತ್ತೇನೆ."',
+                    testimonial2Author: '- ರಾಹುಲ್ ಕೆ.',
+                    testimonial3Text: '"ವೇಗದ ಸೇವೆ ಮತ್ತು ತುಂಬಾ ವೃತ್ತಿಪರರು. ಅವರು ಭವಿಷ್ಯದಲ್ಲಿ ಹಾನಿ ತಡೆಯಲು ಸಲಹೆಗಳನ್ನು ಸಹ ನೀಡಿದರು. ಉತ್ತಮ ಅನುಭವ."',
+                    testimonial3Author: '- ಪ್ರಿಯಾ ಎಸ್.',
+                    contactTitle: 'ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ',
+                    contactSubtitle: 'ಮೈಸೂರಿನಲ್ಲಿರುವ ನಮ್ಮ ಅಂಗಡಿಗೆ ಭೇಟಿ ನೀಡಿ ಅಥವಾ ನೇರವಾಗಿ ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ.',
+                    addressTitle: 'ವಿಳಾಸ',
+                    addressText: '123 ಮುಖ್ಯ ರಸ್ತೆ, <br>ಮೈಸೂರು, ಕರ್ನಾಟಕ 570001',
+                    phoneTitle: 'ದೂರವಾಣಿ',
+                    phoneText: '+91 98765 43210',
+                    emailTitle: 'ಇಮೇಲ್',
+                    emailText: 'info@fixmyphone.com',
+                    faqTitle: 'ಪದೇ ಪದೇ ಕೇಳಲಾಗುವ ಪ್ರಶ್ನೆಗಳು',
+                    faqSubtitle: 'ನಮ್ಮ ಸೇವೆಗಳ ಬಗ್ಗೆ ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳಿಗೆ ತ್ವರಿತ ಉತ್ತರಗಳನ್ನು ಕಂಡುಕೊಳ್ಳಿ.',
+                    faq1Q: 'ಪರದೆ ಬದಲಾವಣೆಗೆ ಎಷ್ಟು ಸಮಯ ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ?',
+                    faq1A: 'ಹೆಚ್ಚಿನ ಪರದೆ ಬದಲಾವಣೆಗಳು 60-90 ನಿಮಿಷಗಳಲ್ಲಿ ಪೂರ್ಣಗೊಳ್ಳುತ್ತವೆ, ಇದು ಸಾಧನದ ಮಾದರಿ ಮತ್ತು ಪ್ರಸ್ತುತ ಕೆಲಸದ ಹೊರೆಯನ್ನು ಅವಲಂಬಿಸಿರುತ್ತದೆ.',
+                    faq2Q: 'ನೀವು ಮೂಲ ಭಾಗಗಳನ್ನು ಬಳಸುತ್ತೀರಾ?',
+                    faq2A: 'ನಾವು ಕಾರ್ಯಕ್ಷಮತೆ ಮತ್ತು ಬಾಳಿಕೆಗಾಗಿ ಪರೀಕ್ಷಿಸಲಾದ ಉತ್ತಮ ಗುಣಮಟ್ಟದ, OEM-ದರ್ಜೆಯ ಭಾಗಗಳನ್ನು ಬಳಸುತ್ತೇವೆ. ನಾವು ನಮ್ಮ ರಿಪೇರಿಗಳ ಗುಣಮಟ್ಟದ ಮೇಲೆ ನಿಲ್ಲುತ್ತೇವೆ.',
+                    faq3Q: 'ನಿಮ್ಮ ರಿಪೇರಿಗಳ ಮೇಲೆ ಖಾತರಿ ಇದೆಯೇ?',
+                    faq3A: 'ಹೌದು, ನಮ್ಮ ಎಲ್ಲಾ ರಿಪೇರಿಗಳು ಭಾಗಗಳು ಮತ್ತು ಕಾರ್ಮಿಕರನ್ನು ಒಳಗೊಂಡ ಪ್ರಮಾಣಿತ ಖಾತರಿಯೊಂದಿಗೆ ಬರುತ್ತವೆ. ದಯವಿಟ್ಟು ನಮ್ಮ ಸಿಬ್ಬಂದಿಯನ್ನು ವಿವರಗಳಿಗಾಗಿ ಕೇಳಿ.',
+                    modalTitle: 'Get a Quote',
+                    modalSubtitle: 'Fill out the form below and we\'ll get back to you with a quote.',
+                    langButtonText: 'ಇಂಗ್ಲಿಷ್‌ಗೆ ಬದಲಿಸಿ'
+                }
+            };
+
+            let currentLang = 'en';
+
+            // Function to update content based on language
+            const updateContent = (lang) => {
+                const content = translations[lang];
+                document.getElementById('hero-title-1').textContent = content.heroTitle1;
+                document.getElementById('hero-title-2').textContent = content.heroTitle2;
+                document.getElementById('hero-subtitle').textContent = content.heroSubtitle;
+                document.getElementById('services-title').textContent = content.servicesTitle;
+                document.getElementById('services-subtitle').textContent = content.servicesSubtitle;
+                document.getElementById('service-1-title').textContent = content.service1Title;
+                document.getElementById('service-1-desc').textContent = content.service1Desc;
+                document.getElementById('service-2-title').textContent = content.service2Title;
+                document.getElementById('service-2-desc').textContent = content.service2Desc;
+                document.getElementById('service-3-title').textContent = content.service3Title;
+                document.getElementById('service-3-desc').textContent = content.service3Desc;
+                document.getElementById('service-4-title').textContent = content.service4Title;
+                document.getElementById('service-4-desc').textContent = content.service4Desc;
+                document.getElementById('service-5-title').textContent = content.service5Title;
+                document.getElementById('service-5-desc').textContent = content.service5Desc;
+                document.getElementById('service-6-title').textContent = content.service6Title;
+                document.getElementById('service-6-desc').textContent = content.service6Desc;
+                document.getElementById('service-7-title').textContent = content.service7Title;
+                document.getElementById('service-7-desc').textContent = content.service7Desc;
+                document.getElementById('service-8-title').textContent = content.service8Title;
+                document.getElementById('service-8-desc').textContent = content.service8Desc;
+                document.getElementById('about-title').textContent = content.aboutTitle;
+                document.getElementById('about-text').textContent = content.aboutText;
+                document.getElementById('testimonials-title').textContent = content.testimonialsTitle;
+                document.getElementById('testimonials-subtitle').textContent = content.testimonialsSubtitle;
+                document.getElementById('testimonial-1-text').textContent = content.testimonial1Text;
+                document.getElementById('testimonial-1-author').textContent = content.testimonial1Author;
+                document.getElementById('testimonial-2-text').textContent = content.testimonial2Text;
+                document.getElementById('testimonial-2-author').textContent = content.testimonial2Author;
+                document.getElementById('testimonial-3-text').textContent = content.testimonial3Text;
+                document.getElementById('testimonial-3-author').textContent = content.testimonial3Author;
+                document.getElementById('contact-title').textContent = content.contactTitle;
+                document.getElementById('contact-subtitle').textContent = content.contactSubtitle;
+                document.getElementById('address-title').textContent = content.addressTitle;
+                document.getElementById('address-text').innerHTML = content.addressText;
+                document.getElementById('phone-title').textContent = content.phoneTitle;
+                document.getElementById('phone-text').textContent = content.phoneText;
+                document.getElementById('email-title').textContent = content.emailTitle;
+                document.getElementById('email-text').textContent = content.emailText;
+                document.getElementById('faq-title').textContent = content.faqTitle;
+                document.getElementById('faq-subtitle').textContent = content.faqSubtitle;
+                document.getElementById('faq-1-q').textContent = content.faq1Q;
+                document.getElementById('faq-1-a').textContent = content.faq1A;
+                document.getElementById('faq-2-q').textContent = content.faq2Q;
+                document.getElementById('faq-2-a').textContent = content.faq2A;
+                document.getElementById('faq-3-q').textContent = content.faq3Q;
+                document.getElementById('faq-3-a').textContent = content.faq3A;
+                document.getElementById('modal-title').textContent = content.modalTitle;
+                document.getElementById('modal-subtitle').textContent = content.modalSubtitle;
+                langToggleDesktop.textContent = content.langButtonText;
+                langToggleMobile.textContent = content.langButtonText;
+            };
+
+            // Language toggle functionality
+            const handleLangToggle = () => {
+                currentLang = currentLang === 'en' ? 'kn' : 'en';
+                updateContent(currentLang);
+                // Close mobile menu after language change
+                mobileMenu.classList.remove('active');
+            };
+
+            langToggleDesktop.addEventListener('click', handleLangToggle);
+            langToggleMobile.addEventListener('click', handleLangToggle);
+
+            // Dismiss banner logic
+            dismissBannerBtn.addEventListener('click', () => {
+                discountBanner.style.display = 'none';
+            });
+
+            // Sticky header logic
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('py-2', 'shadow-lg');
+                    header.classList.remove('py-4');
+                } else {
+                    header.classList.remove('py-2', 'shadow-lg');
+                    header.classList.add('py-4');
+                }
+                
+                // Show/hide back-to-top button
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.remove('invisible', 'opacity-0');
+                    backToTopBtn.classList.add('visible', 'opacity-100');
+                } else {
+                    backToTopBtn.classList.remove('visible', 'opacity-100');
+                    backToTopBtn.classList.add('invisible', 'opacity-0');
+                }
+            });
+
+            // Back-to-top functionality
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Quote modal functionality
+            const showModal = () => {
+                quoteModal.classList.remove('invisible', 'opacity-0');
+                quoteModal.classList.add('visible', 'opacity-100');
+                diagnosisResult.classList.add('hidden');
+                diagnosisText.textContent = '';
+            };
+
+            const hideModal = () => {
+                quoteModal.classList.remove('visible', 'opacity-100');
+                quoteModal.classList.add('invisible', 'opacity-0');
+            };
+
+            quoteButtons.forEach(button => {
+                button.addEventListener('click', showModal);
+            });
+            closeModalButton.addEventListener('click', hideModal);
+
+            // Close modal when clicking outside
+            quoteModal.addEventListener('click', (e) => {
+                if (e.target === quoteModal) {
+                    hideModal();
+                }
+            });
+
+            // Mobile menu toggle
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+            });
+            
+            // AI-powered diagnosis on form submit
+            quoteForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                diagnosisResult.classList.remove('hidden');
+                diagnosisLoading.classList.remove('hidden');
+                diagnosisText.textContent = '';
+                
+                const device = document.getElementById('device').value;
+                const issue = document.getElementById('issue').value;
+
+                const userPrompt = `A customer has a ${device} with the following issue: "${issue}". As an expert phone repair technician, provide a brief, professional diagnosis of the likely problem and a single recommendation. Do not provide pricing information or a warranty.`;
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: userPrompt }] }],
+                };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+                    const diagnosis = result.candidates[0].content.parts[0].text;
+                    diagnosisText.textContent = diagnosis;
+                } catch (error) {
+                    diagnosisText.textContent = "Sorry, I couldn't provide a diagnosis at this time. Please contact us directly for assistance.";
+                    console.error("Gemini API error:", error);
+                } finally {
+                    diagnosisLoading.classList.add('hidden');
+                }
+            });
+            // Initial content load
+            updateContent(currentLang);
+        });
+    </script>
+
+</body>
+</html>
