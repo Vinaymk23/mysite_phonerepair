@@ -55,7 +55,7 @@
         .icon-service:hover {
             transform: translateY(-8px) scale(1.05);
         }
-        .quote-modal {
+        .quote-modal, .repair-modal {
             transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
         }
         .scroll-to-top {
@@ -96,12 +96,11 @@
                 <a href="#testimonials" class="text-gray-600 hover:text-blue-600 transition-colors duration-200">Reviews</a>
                 <a href="#blog" class="text-gray-600 hover:text-blue-600 transition-colors duration-200">Blog</a>
                 <a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors duration-200">Contact</a>
-                <!-- Language Toggle moved into the navigation flow for desktop -->
                 <button id="lang-toggle" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-200">
                     Switch to Kannada
                 </button>
-                <!-- "Get a Quote" button added back for quick access -->
-                <button id="quote-button" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-full shadow-md hover:bg-blue-700 transition-colors duration-200">Get a Quote</button>
+                <button id="repair-button" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-full shadow-md hover:bg-blue-700 transition-colors duration-200">Repair Phone</button>
+                <button id="quote-button" class="bg-gray-200 text-blue-600 font-semibold py-2 px-4 rounded-full shadow-md hover:bg-gray-300 transition-colors duration-200">Get a Quote</button>
             </div>
             <!-- Mobile Menu Button -->
             <button id="mobile-menu-btn" class="md:hidden text-gray-600 hover:text-blue-600">
@@ -115,9 +114,8 @@
             <a href="#testimonials" class="block px-6 py-2 text-gray-600 hover:bg-gray-100">Reviews</a>
             <a href="#blog" class="block px-6 py-2 text-gray-600 hover:bg-gray-100">Blog</a>
             <a href="#contact" class="block px-6 py-2 text-gray-600 hover:bg-gray-100">Contact</a>
-            <!-- Language Toggle moved into the mobile menu -->
             <button id="lang-toggle-mobile" class="w-full text-left px-6 py-2 text-blue-600 hover:bg-gray-100">Switch to Kannada</button>
-            <!-- "Get a Quote" button added back to mobile menu -->
+            <button id="repair-button-mobile" class="w-full text-left px-6 py-2 text-blue-600 hover:bg-gray-100">Repair Phone</button>
             <button id="quote-button-mobile" class="w-full text-left px-6 py-2 text-blue-600 hover:bg-gray-100">Get a Quote</button>
         </div>
     </header>
@@ -474,11 +472,66 @@
         </div>
     </div>
 
+    <!-- Repair Modal -->
+    <div id="repair-modal" class="repair-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 invisible">
+        <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-xl mx-4 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="repair-modal-title" class="text-2xl font-bold text-gray-800">Repair My Phone</h3>
+                <button id="close-repair-modal" class="text-gray-500 hover:text-gray-800 text-2xl">
+                    &times;
+                </button>
+            </div>
+            <div id="repair-steps-container">
+                <!-- Step 1: Brand Selection -->
+                <div id="step-brands" data-step="1">
+                    <p class="text-gray-600 mb-6">Select your phone's brand.</p>
+                    <div id="brand-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
+                        <!-- Brand icons will be dynamically inserted here -->
+                    </div>
+                </div>
+
+                <!-- Step 2: Model Selection -->
+                <div id="step-models" data-step="2" class="hidden">
+                    <button id="back-to-brands" class="text-blue-600 hover:underline mb-4">&larr; Back to Brands</button>
+                    <h4 class="text-xl font-semibold text-gray-700 mb-4">Select your phone model</h4>
+                    <div id="model-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <!-- Model cards will be dynamically inserted here -->
+                    </div>
+                </div>
+
+                <!-- Step 3: Services Selection -->
+                <div id="step-services" data-step="3" class="hidden">
+                    <button id="back-to-models" class="text-blue-600 hover:underline mb-4">&larr; Back to Models</button>
+                    <h4 class="text-xl font-semibold text-gray-700 mb-4">Select repair services for <span id="selected-model-name" class="font-bold"></span></h4>
+                    <div id="services-list" class="space-y-4">
+                        <!-- Service options will be dynamically inserted here -->
+                    </div>
+                    <div class="mt-8 p-4 border border-gray-300 rounded-lg shadow-inner flex justify-between items-center">
+                        <span class="text-lg font-semibold">Total Price:</span>
+                        <span id="total-price" class="text-2xl font-bold text-blue-600">₹0</span>
+                    </div>
+                    <button id="book-now-btn" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 mt-6">
+                        Book Now
+                    </button>
+                </div>
+            </div>
+            <!-- Confirmation Message -->
+            <div id="booking-confirmation" class="text-center p-6 hidden">
+                <i class="fas fa-check-circle text-green-500 text-6xl mb-4"></i>
+                <h4 class="text-2xl font-bold text-gray-800 mb-2">Booking Confirmed!</h4>
+                <p class="text-gray-600">Thank you for your request. We will contact you shortly to confirm the details of your repair.</p>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const quoteModal = document.getElementById('quote-modal');
+            const repairModal = document.getElementById('repair-modal');
             const quoteButtons = document.querySelectorAll('#quote-button, #hero-quote-btn, #quote-button-mobile');
+            const repairButtons = document.querySelectorAll('#repair-button, #repair-button-mobile');
             const closeModalButton = document.getElementById('close-modal');
+            const closeRepairModalButton = document.getElementById('close-repair-modal');
             const header = document.getElementById('header');
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -494,6 +547,21 @@
             const diagnosisText = document.getElementById('diagnosis-text');
             const diagnosisLoading = document.getElementById('diagnosis-loading');
             const submitQuoteBtn = document.getElementById('submit-quote');
+
+            // New elements for Repair feature
+            const repairStepsContainer = document.getElementById('repair-steps-container');
+            const brandGrid = document.getElementById('brand-grid');
+            const modelGrid = document.getElementById('model-grid');
+            const servicesList = document.getElementById('services-list');
+            const selectedModelName = document.getElementById('selected-model-name');
+            const totalPriceSpan = document.getElementById('total-price');
+            const bookNowBtn = document.getElementById('book-now-btn');
+            const backToBrandsBtn = document.getElementById('back-to-brands');
+            const backToModelsBtn = document.getElementById('back-to-models');
+            const bookingConfirmation = document.getElementById('booking-confirmation');
+
+            let selectedBrandId = null;
+            let selectedModelId = null;
 
             // Language content
             const translations = {
@@ -547,7 +615,8 @@
                     faq3A: 'Yes, all our repairs come with a standard warranty covering the parts and labor. Please ask our staff for details.',
                     modalTitle: 'Get a Quote',
                     modalSubtitle: 'Fill out the form below and we\'ll get back to you with a quote.',
-                    langButtonText: 'Switch to Kannada'
+                    langButtonText: 'Switch to Kannada',
+                    repairButtonText: 'Repair Phone'
                 },
                 'kn': {
                     heroTitle1: 'ದುರಸ್ತಿ ಮಾಡಿ, ನವೀಕರಿಸಿ,',
@@ -584,7 +653,7 @@
                     contactTitle: 'ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ',
                     contactSubtitle: 'ಮೈಸೂರಿನಲ್ಲಿರುವ ನಮ್ಮ ಅಂಗಡಿಗೆ ಭೇಟಿ ನೀಡಿ ಅಥವಾ ನೇರವಾಗಿ ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ.',
                     addressTitle: 'ವಿಳಾಸ',
-                    addressText: '123 ಮುಖ್ಯ ರಸ್ತೆ, <br>ಮೈಸೂರು, ಕರ್ನಾಟಕ 570001',
+                    addressText: '123 Main Street, <br>Mysore, Karnataka 570001',
                     phoneTitle: 'ದೂರವಾಣಿ',
                     phoneText: '+91 98765 43210',
                     emailTitle: 'ಇಮೇಲ್',
@@ -599,7 +668,8 @@
                     faq3A: 'ಹೌದು, ನಮ್ಮ ಎಲ್ಲಾ ರಿಪೇರಿಗಳು ಭಾಗಗಳು ಮತ್ತು ಕಾರ್ಮಿಕರನ್ನು ಒಳಗೊಂಡ ಪ್ರಮಾಣಿತ ಖಾತರಿಯೊಂದಿಗೆ ಬರುತ್ತವೆ. ದಯವಿಟ್ಟು ನಮ್ಮ ಸಿಬ್ಬಂದಿಯನ್ನು ವಿವರಗಳಿಗಾಗಿ ಕೇಳಿ.',
                     modalTitle: 'Get a Quote',
                     modalSubtitle: 'Fill out the form below and we\'ll get back to you with a quote.',
-                    langButtonText: 'ಇಂಗ್ಲಿಷ್‌ಗೆ ಬದಲಿಸಿ'
+                    langButtonText: 'Switch to Kannada',
+                    repairButtonText: 'Repair Phone'
                 }
             };
 
@@ -659,13 +729,14 @@
                 document.getElementById('modal-subtitle').textContent = content.modalSubtitle;
                 langToggleDesktop.textContent = content.langButtonText;
                 langToggleMobile.textContent = content.langButtonText;
+                document.getElementById('repair-button').textContent = content.repairButtonText;
+                document.getElementById('repair-button-mobile').textContent = content.repairButtonText;
             };
 
-            // Language toggle functionality
+            // Function to update content based on language
             const handleLangToggle = () => {
                 currentLang = currentLang === 'en' ? 'kn' : 'en';
                 updateContent(currentLang);
-                // Close mobile menu after language change
                 mobileMenu.classList.remove('active');
             };
 
@@ -706,27 +777,27 @@
             });
 
             // Quote modal functionality
-            const showModal = () => {
+            const showQuoteModal = () => {
                 quoteModal.classList.remove('invisible', 'opacity-0');
                 quoteModal.classList.add('visible', 'opacity-100');
                 diagnosisResult.classList.add('hidden');
                 diagnosisText.textContent = '';
             };
 
-            const hideModal = () => {
+            const hideQuoteModal = () => {
                 quoteModal.classList.remove('visible', 'opacity-100');
                 quoteModal.classList.add('invisible', 'opacity-0');
             };
 
             quoteButtons.forEach(button => {
-                button.addEventListener('click', showModal);
+                button.addEventListener('click', showQuoteModal);
             });
-            closeModalButton.addEventListener('click', hideModal);
+            closeModalButton.addEventListener('click', hideQuoteModal);
 
             // Close modal when clicking outside
             quoteModal.addEventListener('click', (e) => {
                 if (e.target === quoteModal) {
-                    hideModal();
+                    hideQuoteModal();
                 }
             });
 
@@ -770,6 +841,176 @@
                     diagnosisLoading.classList.add('hidden');
                 }
             });
+            
+            // --- New Repair Feature Logic ---
+
+            // Data for brands, models, and services
+            const brandData = {
+                'apple': { name: 'Apple', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg' },
+                'samsung': { name: 'Samsung', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg' },
+                'google': { name: 'Google', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg' },
+                'oneplus': { name: 'OnePlus', logoUrl: 'https://www.svgrepo.com/show/522100/oneplus.svg' },
+                'xiaomi': { name: 'Xiaomi', logoUrl: 'https://www.svgrepo.com/show/521971/xiaomi-black.svg' },
+                'oppo': { name: 'Oppo', logoUrl: 'https://www.svgrepo.com/show/354158/oppo.svg' },
+                'vivo': { name: 'Vivo', logoUrl: 'https://www.svgrepo.com/show/354899/vivo.svg' },
+                'realme': { name: 'Realme', logoUrl: 'https://www.svgrepo.com/show/521857/realme.svg' },
+                'motorola': { name: 'Motorola', logoUrl: 'https://www.svgrepo.com/show/354054/motorola.svg' },
+                'nothing': { name: 'Nothing Phone', logoUrl: 'https://www.svgrepo.com/show/521743/nothing-logo.svg' },
+            };
+
+            const modelData = {
+                'apple': [{ id: 'iphone-15', name: 'iPhone 15' }, { id: 'iphone-14', name: 'iPhone 14' }],
+                'samsung': [{ id: 'galaxy-s24', name: 'Galaxy S24' }, { id: 'galaxy-a55', name: 'Galaxy A55' }],
+                'google': [{ id: 'pixel-8', name: 'Pixel 8' }, { id: 'pixel-7', name: 'Pixel 7' }],
+                'oneplus': [{ id: 'oneplus-12', name: 'OnePlus 12' }, { id: 'oneplus-nord-ce-3', name: 'OnePlus Nord CE 3' }],
+                'xiaomi': [{ id: 'mi-14', name: 'Xiaomi 14' }, { id: 'redmi-note-13', name: 'Redmi Note 13' }],
+                'oppo': [{ id: 'oppo-reno-11', name: 'Oppo Reno 11' }, { id: 'oppo-a79', name: 'Oppo A79' }],
+                'vivo': [{ id: 'vivo-x100', name: 'Vivo X100' }, { id: 'vivo-v30', name: 'Vivo V30' }],
+                'realme': [{ id: 'realme-12-pro', name: 'Realme 12 Pro' }, { id: 'realme-c67', name: 'Realme C67' }],
+                'motorola': [{ id: 'moto-edge-40', name: 'Moto Edge 40' }, { id: 'moto-g84', name: 'Moto G84' }],
+                'nothing': [{ id: 'nothing-phone-1', name: 'Nothing Phone (1)' }, { id: 'nothing-phone-2', name: 'Nothing Phone (2)' }],
+            };
+
+            const serviceData = [
+                { id: 'screen', name: 'Screen', price: 100 },
+                { id: 'battery', name: 'Battery', price: 100 },
+                { id: 'receiver', name: 'Receiver', price: 100 },
+                { id: 'mic', name: 'Mic', price: 100 },
+                { id: 'speaker', name: 'Speaker', price: 100 },
+                { id: 'back-glass', name: 'Back Glass', price: 100 },
+            ];
+
+            // Function to show/hide modals
+            const showModal = (modal) => {
+                modal.classList.remove('invisible', 'opacity-0');
+                modal.classList.add('visible', 'opacity-100');
+            };
+
+            const hideModal = (modal) => {
+                modal.classList.remove('visible', 'opacity-100');
+                modal.classList.add('invisible', 'opacity-0');
+            };
+
+            // Event listeners for the repair modal buttons
+            repairButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    hideModal(quoteModal);
+                    showModal(repairModal);
+                    renderBrands();
+                    // Reset steps to the beginning
+                    document.getElementById('step-brands').classList.remove('hidden');
+                    document.getElementById('step-models').classList.add('hidden');
+                    document.getElementById('step-services').classList.add('hidden');
+                    bookingConfirmation.classList.add('hidden');
+                });
+            });
+
+            closeRepairModalButton.addEventListener('click', () => {
+                hideModal(repairModal);
+            });
+
+            repairModal.addEventListener('click', (e) => {
+                if (e.target === repairModal) {
+                    hideModal(repairModal);
+                }
+            });
+            
+            // Function to render brand selection grid
+            const renderBrands = () => {
+                brandGrid.innerHTML = '';
+                Object.keys(brandData).forEach(brandId => {
+                    const brand = brandData[brandId];
+                    const brandCard = document.createElement('div');
+                    brandCard.className = 'flex flex-col items-center p-4 bg-gray-100 rounded-xl shadow-md cursor-pointer hover:bg-blue-100 transition-colors duration-200';
+                    brandCard.dataset.brandId = brandId;
+                    brandCard.innerHTML = `
+                        <img src="${brand.logoUrl}" alt="${brand.name} Logo" class="w-24 h-12 object-contain mb-2">
+                        <span class="font-semibold text-sm">${brand.name}</span>
+                    `;
+                    brandCard.addEventListener('click', () => {
+                        selectedBrandId = brandId; // Store the selected brand ID
+                        renderModels(brandId);
+                    });
+                    brandGrid.appendChild(brandCard);
+                });
+            };
+
+            // Function to render phone model selection
+            const renderModels = (brandId) => {
+                document.getElementById('step-brands').classList.add('hidden');
+                document.getElementById('step-models').classList.remove('hidden');
+                
+                modelGrid.innerHTML = '';
+                const models = modelData[brandId] || [];
+                models.forEach(model => {
+                    const modelCard = document.createElement('div');
+                    modelCard.className = 'flex flex-col items-center p-4 bg-gray-100 rounded-xl shadow-md cursor-pointer hover:bg-blue-100 transition-colors duration-200';
+                    modelCard.dataset.modelId = model.id;
+                    modelCard.innerHTML = `
+                        <img src="https://placehold.co/100x100/1E40AF/fff?text=${encodeURIComponent(model.name)}" class="w-24 h-24 mb-2 rounded-lg object-contain" alt="${model.name} phone">
+                        <span class="font-semibold text-sm text-center">${model.name}</span>
+                    `;
+                    modelCard.addEventListener('click', () => {
+                        selectedModelId = model.id;
+                        selectedModelName.textContent = model.name;
+                        renderServices();
+                    });
+                    modelGrid.appendChild(modelCard);
+                });
+            };
+
+            // Function to render service selection
+            const renderServices = () => {
+                document.getElementById('step-models').classList.add('hidden');
+                document.getElementById('step-services').classList.remove('hidden');
+                
+                servicesList.innerHTML = '';
+                serviceData.forEach(service => {
+                    const serviceItem = document.createElement('label');
+                    serviceItem.className = 'flex items-center justify-between p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200';
+                    serviceItem.innerHTML = `
+                        <div class="flex items-center">
+                            <input type="checkbox" data-service-price="${service.price}" class="service-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="ml-3 font-semibold text-gray-700">${service.name}</span>
+                        </div>
+                        <span class="font-bold text-blue-600">₹${service.price}</span>
+                    `;
+                    servicesList.appendChild(serviceItem);
+                });
+                
+                servicesList.querySelectorAll('.service-checkbox').forEach(checkbox => {
+                    checkbox.addEventListener('change', updateSummary);
+                });
+                updateSummary();
+            };
+
+            // Function to update total price and summary
+            const updateSummary = () => {
+                let total = 0;
+                const checkboxes = servicesList.querySelectorAll('.service-checkbox:checked');
+                checkboxes.forEach(checkbox => {
+                    total += parseInt(checkbox.dataset.servicePrice);
+                });
+                totalPriceSpan.textContent = `₹${total}`;
+            };
+
+            // Back buttons logic
+            backToBrandsBtn.addEventListener('click', () => {
+                document.getElementById('step-models').classList.add('hidden');
+                document.getElementById('step-brands').classList.remove('hidden');
+            });
+
+            backToModelsBtn.addEventListener('click', () => {
+                document.getElementById('step-services').classList.add('hidden');
+                document.getElementById('step-models').classList.remove('hidden');
+            });
+
+            // "Book Now" logic
+            bookNowBtn.addEventListener('click', () => {
+                repairStepsContainer.classList.add('hidden');
+                bookingConfirmation.classList.remove('hidden');
+            });
+            
             // Initial content load
             updateContent(currentLang);
         });
